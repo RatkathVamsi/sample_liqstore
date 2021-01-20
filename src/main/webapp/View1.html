@@ -11,7 +11,7 @@
 
 <div style="display: flex; justify-content: space-between">
     <button type="button" onclick="addData()" width="100" height="100">add data</button>
-    <button type="button">+</button>
+    <button type="button" onclick="displayTable()">+</button>
 </div>
 <div id="UploadData" style="padding:20px;display: none;">
     <label>Upload Sales file: </label>
@@ -21,6 +21,129 @@
     <input type="file" id="purchasesFile" name="purchases">
     <br>
     <input type="submit">
+
+</div>
+
+<div id="TableDisplay" style="display: none;">
+    <style>
+  td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+</style>
+    <table id="mytab1">
+        <tr>
+            <th>Product Name</th>
+            <th>Purchase/Sales Quantity</th>
+            <th>Purchase/Sales Amount</th>
+            <th>Avg Cost</th>
+            <th>Consumption Qty</th>
+            <th>Consumption%</th>
+            <th>Consumption cost</th>
+            <th>Stock</th>
+        </tr>
+
+        <tr>
+            <td>UD Cotton Seed</td>
+            <td>54300</td>
+            <td>₹ 1,107,946.00</td>
+            <td> ₹ 20.40</td>
+            <td><input type="number" id="udcottonseed" name="udcottonseed" onchange="changeconsumptionqty(this.id)"></td>
+            <td>0%</td>
+            <td>₹ 985,827.09</td>
+            <td>5985</td>
+        </tr>
+
+        <tr>
+            <td>UD Hulls</td>
+            <td>36695</td>
+            <td>₹ 727,709.00</td>
+            <td> ₹ 19.83</td>
+            <td><input type="number" id="udhulls" name="udhulls" onchange="changeconsumptionqty(this.id)"></td>
+            <td>0%</td>
+            <td>₹ 509,564.87</td>
+            <td>11000</td>
+        </tr>
+
+        <tr>
+            <td>Rice Brawn</td>
+            <td>4250</td>
+            <td>₹ 199,125.00</td>
+            <td> ₹ 46.85</td>
+            <td><input type="number" id="ricebrawn" name="ricebrawn" onchange="changeconsumptionqty(this.id)"></td>
+            <td>0%</td>
+            <td>₹ 568,091.91</td>
+            <td>-7875</td>
+        </tr>
+
+        <tr>
+            <td>Rice Powder</td>
+            <td>23050</td>
+            <td>₹ 474,150.00</td>
+            <td> ₹ 20.57</td>
+            <td><input type="number" id="ricepowder" name="ricepowder" onchange="changeconsumptionqty(this.id)"></td>
+            <td>0%</td>
+            <td>₹ 110,052.17</td>
+            <td>17700</td>
+        </tr>
+
+        <tr>
+            <td>Shell Powder</td>
+            <td>10265</td>
+            <td>₹ 92,384.53</td>
+            <td> ₹ 9.00</td>
+            <td><input type="number" id="shellpowder" name="shellpowder" onchange="changeconsumptionqty(this.id)"></td>
+            <td>0%</td>
+            <td>₹ 11,294.94</td>
+            <td>9010</td>
+        </tr>
+
+        <tr>
+            <td>PDL Powder</td>
+            <td>14990</td>
+            <td>₹ 27,000.00</td>
+            <td> ₹ 1.80</td>
+            <td><input type="number" id="pdlpowder" name="pdlpowder" onchange="changeconsumptionqty(this.id)"></td>
+            <td>0%</td>
+            <td>₹ 11,689.79</td>
+            <td>8500</td>
+        </tr>
+
+        <tr>
+            <td>UD Gunny Bags</td>
+            <td>3225</td>
+            <td>₹ 105,300.00</td>
+            <td> ₹ 32.65</td>
+            <td><input type="number" id="udgunnybags" name="udgunnybags" onchange="changeconsumptionqty(this.id)"></td>
+            <td>0%</td>
+            <td>₹ 68,567.44</td>
+            <td>1125</td>
+        </tr>
+
+        <tr>
+            <td>Colour</td>
+            <td>175</td>
+            <td>₹ 45,500.00</td>
+            <td> ₹ 260.00</td>
+            <td><input type="number" id="colour" name="colour" onchange="changeconsumptionqty(this.id)"></td>
+            <td>0%</td>
+            <td>₹ 39,000.00</td>
+            <td>25</td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td id="cqtotal">0</td>
+            <td></td>
+            <td id="cctotal">0</td>
+            <td></td>
+        </tr>
+    </table>
+
 
 </div>
 <!--</div> -->
@@ -36,6 +159,42 @@ function addData() {
     x.style.display = "none";
   }
 }
+
+function displayTable()
+{   var x = document.getElementById("TableDisplay");
+  if (x.style.display === "none")
+  {
+    x.style.display = "block";
+  }
+  else
+  {
+    x.style.display = "none";
+  }
+}
+
+function changeconsumptionqty(input1)
+{
+
+	var x=document.getElementById(input1);
+    var y=document.getElementById("cqtotal");
+
+    y.innerHTML=parseInt(x.value) + parseInt(y.innerHTML);
+
+    var table = document.getElementById("mytab1");
+
+for (var i = 1, row; row = table.rows[i]; i++) {
+
+   for (var j = 0, col; col = row.cells[j]; j++) {
+   if(j==5)
+   {
+   		col.innerHTML=parseInt(x.value)*100/parseInt(y.innerHTML)+"%";
+
+   }
+
+   }
+}
+}
+
 </script>
 </html>
 
