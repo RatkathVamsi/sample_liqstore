@@ -35,6 +35,7 @@
     <table id="mytab1">
         <tr>
             <th>Product Name</th>
+            <th>Previous Stock</th>
             <th>Purchase/Sales Quantity</th>
             <th>Purchase/Sales Amount</th>
             <th>Avg Cost</th>
@@ -46,93 +47,102 @@
 
         <tr>
             <td>UD Cotton Seed</td>
+            <td>0</td>
             <td>54300</td>
             <td>1107946.00</td>
-            <td>20.40</td>
+            <td>0</td>
             <td><input type="number" id="udcottonseed" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
             <td>0%</td>
             <td>0</td>
-            <td>5985</td>
+            <td>0</td>
         </tr>
 
         <tr>
             <td>UD Hulls</td>
+            <td>0</td>
             <td>36695</td>
             <td>727709.00</td>
-            <td>19.83</td>
+            <td>0</td>
             <td><input type="number" id="udhulls" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
             <td>0%</td>
             <td>0</td>
-            <td>11000</td>
+            <td>0</td>
         </tr>
 
         <tr>
             <td>Rice Brawn</td>
+            <td>0</td>
             <td>4250</td>
             <td>199125.00</td>
-            <td>46.85</td>
+            <td>0</td>
             <td><input type="number" id="ricebrawn" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
             <td>0%</td>
             <td>0</td>
-            <td>-7875</td>
+            <td>0</td>
         </tr>
 
         <tr>
             <td>Rice Powder</td>
+            <td>0</td>
             <td>23050</td>
             <td>474150.00</td>
-            <td>20.57</td>
+            <td>0</td>
             <td><input type="number" id="ricepowder" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
             <td>0%</td>
             <td>0</td>
-            <td>17700</td>
+            <td>0</td>
         </tr>
 
         <tr>
             <td>Shell Powder</td>
+            <td>0</td>
             <td>10265</td>
             <td>92384.53</td>
-            <td>9.00</td>
+            <td>0</td>
             <td><input type="number" id="shellpowder" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
             <td>0%</td>
             <td>0</td>
-            <td>9010</td>
+            <td>0</td>
         </tr>
 
         <tr>
             <td>PDL Powder</td>
+            <td>0</td>
             <td>14990</td>
             <td>27000.00</td>
-            <td>1.80</td>
+            <td>0</td>
             <td><input type="number" id="pdlpowder" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
             <td>0%</td>
             <td>0</td>
-            <td>8500</td>
+            <td>0</td>
         </tr>
 
         <tr>
             <td>UD Gunny Bags</td>
+            <td>0</td>
             <td>3225</td>
             <td>105300.00</td>
-            <td>32.65</td>
+            <td>0</td>
             <td><input type="number" id="udgunnybags" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
             <td>0%</td>
             <td>0</td>
-            <td>1125</td>
+            <td>0</td>
         </tr>
 
         <tr>
             <td>Colour</td>
+            <td>0</td>
             <td>175</td>
             <td>45500.00</td>
-            <td>260.00</td>
+            <td>0</td>
             <td><input type="number" id="colour" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
             <td>0%</td>
             <td>0</td>
-            <td>25</td>
+            <td>0</td>
         </tr>
 
         <tr>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -142,8 +152,48 @@
             <td id="cctotal">0</td>
             <td></td>
         </tr>
+
+        <tr>
+            <td>UD Cake</td>
+            <td>0</td>
+            <td>100905</td>
+            <td id="udcakeamt">2572531.00</td>
+            <td>0</td>
+            <td><input type="number" id="udcake" name="udCake" value="0" onchange="changeudCake(this.id,'10')"></td>
+            <td>0%</td>
+            <td id="udcakecc">0</td>
+            <td>0</td>
+        </tr>
+
+
+        <tr>
+            <td>Wastage</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td id="wastagetotal">0</td>
+            <td id="wastagepercent">0%</td>
+            <td></td>
+            <td></td>
+        </tr>
+
     </table>
 
+    <label>Processing Rate:</label>
+    <input type="text" id="processingRate" value="0" onchange="calculateprofit()">
+    <br>
+    <label>GST:</label>
+    <input type="text" id="GST" value="0" onchange="calculateprofit()">
+    <br>
+    <label>Processing Fee:</label>
+    <input type="text" id="processingFee" value="0" disabled>
+    <br>
+    <label>Total Expense:</label>
+    <input type="text" id="totalExpense" value="0" disabled>
+    <br>
+    <label>Profit:</label>
+    <input type="text" id="profit" value="0" disabled>
 
 </div>
 <!--</div> -->
@@ -151,6 +201,22 @@
 
 </body>
 <script>
+function calculateprofit()
+{
+	var processingRate= parseFloat(document.getElementById("processingRate").value);
+
+    var gst= parseFloat(document.getElementById("GST").value);
+
+    var processingFee= parseFloat(processingRate*(1+(gst/100))*document.getElementById("udcake").value);
+    document.getElementById("processingFee").value= processingFee;
+
+    var totalExpense= parseFloat(processingFee + parseFloat(document.getElementById("cctotal").innerHTML));
+    document.getElementById("totalExpense").value= totalExpense;
+
+    var profit= parseFloat(parseFloat(document.getElementById("udcakeamt").innerHTML)-totalExpense);
+    document.getElementById("profit").value= profit;
+
+}
 function addData() {
    var x = document.getElementById("UploadData");
   if (x.style.display === "none") {
@@ -172,34 +238,98 @@ function displayTable()
   }
 }
 
+function changeudCake(input1,row)
+{
+	var cqTotal=parseInt(document.getElementById("cqtotal").innerHTML);
+
+    var consumptionQty=parseInt(document.getElementById(input1).value);
+    var table = document.getElementById("mytab1");
+
+    var cpColumn= 6;
+    var prevstockColumn=1;
+    var salesColumn=3;
+    var quantityColumn=2;
+    var avgcostColumn=4;
+    var ccColumn=7;
+    var stockColumn=8;
+
+
+
+        var col= table.rows[row].cells[cpColumn];
+        var z=parseFloat(consumptionQty*100/parseInt(cqTotal)).toFixed(2);
+        col.innerHTML=z+"%";
+
+        table.rows[row].cells[avgcostColumn].innerHTML= (parseFloat(table.rows[row].cells[salesColumn].innerHTML) / parseInt(table.rows[row].cells[quantityColumn].innerHTML)).toFixed(2);
+ 	    //consumption cost= consumption qty* avg cost
+
+        var avgCost= parseFloat(table.rows[row].cells[avgcostColumn].innerHTML);
+        var consumptionCost= (avgCost*consumptionQty).toFixed(2);
+        table.rows[row].cells[ccColumn].innerHTML= consumptionCost;
+
+
+        var currentStock= table.rows[row].cells[quantityColumn].innerHTML;
+        var previousStock= table.rows[row].cells[prevstockColumn].innerHTML;
+
+        table.rows[row].cells[stockColumn].innerHTML=previousStock+currentStock-consumptionQty;
+
+       //table.rows[row+1].cells[5].innerHTML = cqTotal-consumptionQty;
+       document.getElementById("wastagetotal").innerHTML=cqTotal-consumptionQty;
+       document.getElementById("wastagepercent").innerHTML= (100- z) +"%";
+
+}
+
+
+
 function changeconsumptionqty(input1)
 {
 	var consumptionQty=parseInt(document.getElementById(input1).value);
     var cqTotal=document.getElementById("cqtotal");
 
-    cqTotal.innerHTML=consumptionQty+parseInt(cqTotal.innerHTML);
+
 
 
     var table = document.getElementById("mytab1");
     var ccTotal=document.getElementById("cctotal");
     ccTotal.innerHTML=0;
-	for (var i = 1; i<table.rows.length; i++)
+    cqTotal.innerHTML=0;
+
+    var cpColumn= 6;
+    var prevstockColumn=1;
+    var salesColumn=3;
+    var quantityColumn=2;
+    var avgcostColumn=4;
+    var ccColumn=7;
+    var stockColumn=8;
+    for (var i = 1; i<9; i++)
 	{
         var temp= parseInt(document.getElementsByName("consumptionQty")[i-1].value);
-        var col= table.rows[i].cells[5];
+        cqTotal.innerHTML=temp+parseInt(cqTotal.innerHTML);
+    }
+	for (var i = 1; i<9; i++)
+	{
+        var temp= parseInt(document.getElementsByName("consumptionQty")[i-1].value);
+
+        var col= table.rows[i].cells[cpColumn];
         col.innerHTML=(temp*100/parseInt(cqTotal.innerHTML)).toFixed(2)+"%";
-		//table.rows[i].cells[3].innerHTML= (parseFloat(table.rows[i].cells[2].innerHTML) / parseInt(table.rows[i].cells[1].innerHTML)).toFixed(2);
+
+        table.rows[i].cells[avgcostColumn].innerHTML= (parseFloat(table.rows[i].cells[salesColumn].innerHTML) / parseInt(table.rows[i].cells[quantityColumn].innerHTML)).toFixed(2);
  	    //consumption cost= consumption qty* avg cost
-        var avgCost= parseFloat(table.rows[i].cells[3].innerHTML);
+
+        var avgCost= parseFloat(table.rows[i].cells[avgcostColumn].innerHTML);
         var consumptionCost= (avgCost*temp).toFixed(2);
-        table.rows[i].cells[6].innerHTML= consumptionCost;
-    
+        table.rows[i].cells[ccColumn].innerHTML= consumptionCost;
+
         ccTotal.innerHTML= parseFloat(consumptionCost)+ parseFloat(ccTotal.innerHTML);
 
-        var currentStock= table.rows[i].cells[1].innerHTML;
-        table.rows[i].cells[7].innerHTML=currentStock-temp;
+        var currentStock= table.rows[i].cells[quantityColumn].innerHTML;
+        var previousStock= table.rows[i].cells[prevstockColumn].innerHTML;
+
+        table.rows[i].cells[stockColumn].innerHTML=previousStock+currentStock-temp;
+
    	}
+    changeudCake("udcake",'10');
 }
 
 </script>
 </html>
+
