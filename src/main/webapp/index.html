@@ -3,17 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+    <script>
+        $(function(){
+        $("#header").load("header.html");
+        $("#footer").load("footer.html");
+        });
+    </script>
+
 </head>
 <body>
+<div id="header"></div>
+<!--Remaining section-->
+
 <!--<div style="background-color:black;color:white;padding:30px;">-->
-<h2 style="display: flex; justify-content: flex-end">Welcome Praneeth</h2>
+
 <h1 style="display: flex; justify-content: center"> Production Entries</h1>
 
 <div style="display: flex; justify-content: space-between">
-    <button type="button" onclick="addData()" width="100" height="100">add data</button>
-    <button type="button" onclick="displayTable()">+</button>
+    <button type="button" onclick="addData()" >add data</button>
+
+    <a href="NewProductionEntry.html">
+        <button type="button" onclick="displayTable()" >+</button>
+    </a>
 </div>
-<div id="UploadData" style="padding:20px;display: none;">
+<div id="UploadData" style="padding:20px;display:none;">
     <label>Upload Sales file: </label>
     <input type="file" id="salesFile" name="sales">
     <br>
@@ -24,311 +46,43 @@
 
 </div>
 
-<div id="TableDisplay" style="display: none;">
-    <style>
-  td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-</style>
+<br>
+<br>
+<br>
+
+<div id="TableDisplay" style="display: flex; justify-content: center">
+
     <table id="mytab1">
         <tr>
-            <th>Product Name</th>
-            <th>Previous Stock</th>
-            <th>Purchase/Sales Quantity</th>
-            <th>Purchase/Sales Amount</th>
-            <th>Avg Cost</th>
-            <th>Consumption Qty</th>
-            <th>Consumption%</th>
-            <th>Consumption cost</th>
-            <th>Stock</th>
+            <th>Period</th>
+            <th>UD Cake Produced</th>
+            <th>Profit</th>
         </tr>
-
         <tr>
-            <td>UD Cotton Seed</td>
-            <td>0</td>
-            <td>54300</td>
-            <td>1107946.00</td>
-            <td>0</td>
-            <td><input type="number" id="udcottonseed" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
-            <td>0%</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-
-        <tr>
-            <td>UD Hulls</td>
-            <td>0</td>
-            <td>36695</td>
-            <td>727709.00</td>
-            <td>0</td>
-            <td><input type="number" id="udhulls" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
-            <td>0%</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-
-        <tr>
-            <td>Rice Brawn</td>
-            <td>0</td>
-            <td>4250</td>
-            <td>199125.00</td>
-            <td>0</td>
-            <td><input type="number" id="ricebrawn" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
-            <td>0%</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-
-        <tr>
-            <td>Rice Powder</td>
-            <td>0</td>
-            <td>23050</td>
-            <td>474150.00</td>
-            <td>0</td>
-            <td><input type="number" id="ricepowder" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
-            <td>0%</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-
-        <tr>
-            <td>Shell Powder</td>
-            <td>0</td>
-            <td>10265</td>
-            <td>92384.53</td>
-            <td>0</td>
-            <td><input type="number" id="shellpowder" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
-            <td>0%</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-
-        <tr>
-            <td>PDL Powder</td>
-            <td>0</td>
-            <td>14990</td>
-            <td>27000.00</td>
-            <td>0</td>
-            <td><input type="number" id="pdlpowder" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
-            <td>0%</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-
-        <tr>
-            <td>UD Gunny Bags</td>
-            <td>0</td>
-            <td>3225</td>
-            <td>105300.00</td>
-            <td>0</td>
-            <td><input type="number" id="udgunnybags" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
-            <td>0%</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-
-        <tr>
-            <td>Colour</td>
-            <td>0</td>
-            <td>175</td>
-            <td>45500.00</td>
-            <td>0</td>
-            <td><input type="number" id="colour" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
-            <td>0%</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-
-        <tr>
-            <td>Total</td>
             <td></td>
             <td></td>
             <td></td>
+        </tr>
+        <tr>
             <td></td>
-            <td id="cqtotal">0</td>
             <td></td>
-            <td id="cctotal">0</td>
             <td></td>
         </tr>
-
         <tr>
-            <td>UD Cake</td>
-            <td>0</td>
-            <td>100905</td>
-            <td id="udcakeamt">2572531.00</td>
-            <td>0</td>
-            <td><input type="number" id="udcake" name="udCake" value="0" onchange="changeudCake(this.id,'10')"></td>
-            <td>0%</td>
-            <td id="udcakecc">0</td>
-            <td>0</td>
-        </tr>
-
-
-        <tr>
-            <td>Wastage</td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td id="wastagetotal">0</td>
-            <td id="wastagepercent">0%</td>
             <td></td>
             <td></td>
         </tr>
 
     </table>
 
-    <label>Processing Rate:</label>
-    <input type="text" id="processingRate" value="0" onchange="calculateprofit()">
-    <br>
-    <label>GST:</label>
-    <input type="text" id="GST" value="0" onchange="calculateprofit()">
-    <br>
-    <label>Processing Fee:</label>
-    <input type="text" id="processingFee" value="0" disabled>
-    <br>
-    <label>Total Expense:</label>
-    <input type="text" id="totalExpense" value="0" disabled>
-    <br>
-    <label>Profit:</label>
-    <input type="text" id="profit" value="0" disabled>
+
 
 </div>
 <!--</div> -->
-
+<div id="footer"></div>
 
 </body>
-<script>
-function calculateprofit()
-{
-	var processingRate= parseFloat(document.getElementById("processingRate").value);
 
-    var gst= parseFloat(document.getElementById("GST").value);
-
-    var processingFee= parseFloat(processingRate*(1+(gst/100))*document.getElementById("udcake").value);
-    document.getElementById("processingFee").value= processingFee.toFixed(2);
-
-    var totalExpense= parseFloat(processingFee + parseFloat(document.getElementById("cctotal").innerHTML));
-    document.getElementById("totalExpense").value= totalExpense.toFixed(2);
-
-    var profit= parseFloat(parseFloat(document.getElementById("udcakecc").innerHTML)-totalExpense);
-    document.getElementById("profit").value= profit.toFixed(2);
-
-}
-function addData() {
-   var x = document.getElementById("UploadData");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-
-function displayTable()
-{   var x = document.getElementById("TableDisplay");
-  if (x.style.display === "none")
-  {
-    x.style.display = "block";
-  }
-  else
-  {
-    x.style.display = "none";
-  }
-}
-
-function changeudCake(input1,row)
-{
-	var cqTotal=parseInt(document.getElementById("cqtotal").innerHTML);
-
-    var consumptionQty=parseInt(document.getElementById(input1).value);
-    var table = document.getElementById("mytab1");
-
-    var cpColumn= 6;
-    var prevstockColumn=1;
-    var salesColumn=3;
-    var quantityColumn=2;
-    var avgcostColumn=4;
-    var ccColumn=7;
-    var stockColumn=8;
-
-
-
-        var col= table.rows[row].cells[cpColumn];
-        var z=parseFloat(consumptionQty*100/parseInt(cqTotal)).toFixed(2);
-        col.innerHTML=z+"%";
-
-       var avgCost= parseFloat(table.rows[row].cells[salesColumn].innerHTML) / parseInt(table.rows[row].cells[quantityColumn].innerHTML);
- 	    //consumption cost= consumption qty* avg cost
-		table.rows[row].cells[avgcostColumn].innerHTML= avgCost.toFixed(2);
-        var consumptionCost= (avgCost*consumptionQty).toFixed(2);
-        table.rows[row].cells[ccColumn].innerHTML= consumptionCost;
-
-
-        var currentStock= table.rows[row].cells[quantityColumn].innerHTML;
-        var previousStock= table.rows[row].cells[prevstockColumn].innerHTML;
-
-        table.rows[row].cells[stockColumn].innerHTML=previousStock+currentStock-consumptionQty;
-
-       //table.rows[row+1].cells[5].innerHTML = cqTotal-consumptionQty;
-       document.getElementById("wastagetotal").innerHTML=cqTotal-consumptionQty;
-       document.getElementById("wastagepercent").innerHTML= parseFloat(100- z).toFixed(2)+"%";
-
-}
-
-
-
-function changeconsumptionqty(input1)
-{
-	var consumptionQty=parseInt(document.getElementById(input1).value);
-    var cqTotal=document.getElementById("cqtotal");
-
-
-
-
-    var table = document.getElementById("mytab1");
-    var ccTotal=document.getElementById("cctotal");
-    ccTotal.innerHTML=0;
-    cqTotal.innerHTML=0;
-
-    var cpColumn= 6;
-    var prevstockColumn=1;
-    var salesColumn=3;
-    var quantityColumn=2;
-    var avgcostColumn=4;
-    var ccColumn=7;
-    var stockColumn=8;
-    for (var i = 1; i<9; i++)
-	{
-        var temp= parseInt(document.getElementsByName("consumptionQty")[i-1].value);
-        cqTotal.innerHTML=temp+parseInt(cqTotal.innerHTML);
-    }
-	for (var i = 1; i<9; i++)
-	{
-        var temp= parseInt(document.getElementsByName("consumptionQty")[i-1].value);
-
-        var col= table.rows[i].cells[cpColumn];
-        col.innerHTML=(temp*100/parseInt(cqTotal.innerHTML)).toFixed(2)+"%";
-
-      	var avgCost= parseFloat(table.rows[i].cells[salesColumn].innerHTML) / 		parseInt(table.rows[i].cells[quantityColumn].innerHTML);
- 	    //consumption cost= consumption qty* avg cost
-		  table.rows[i].cells[avgcostColumn].innerHTML=avgCost.toFixed(2);
-
-        var consumptionCost= (avgCost*temp).toFixed(2);
-        table.rows[i].cells[ccColumn].innerHTML= consumptionCost;
-
-        ccTotal.innerHTML= parseFloat(consumptionCost)+ parseFloat(ccTotal.innerHTML);
-
-        var currentStock= table.rows[i].cells[quantityColumn].innerHTML;
-        var previousStock= table.rows[i].cells[prevstockColumn].innerHTML;
-
-        table.rows[i].cells[stockColumn].innerHTML=previousStock+currentStock-temp;
-
-   	}
-    changeudCake("udcake",'10');
-}
-
-</script>
 </html>
 
