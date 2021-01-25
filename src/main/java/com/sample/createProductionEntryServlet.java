@@ -1,6 +1,7 @@
 package com.sample;
 
 import com.sample.model.LiquorType;
+import com.sample.model.ProductionEntry;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,13 +22,14 @@ public class createProductionEntryServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ProductionEntry productionEntry= new ProductionEntry();
 
-        String consumptionQties[] = req.getParameterValues("consumptionQty");
-               // getParameter("consumptionQty");
-        for(int i=0;i< consumptionQties.length;i++)
-        System.out.println("Liquor Type= " + consumptionQties[i]);
-       // LiquorService liquorService = new LiquorService();
-       // LiquorType l = LiquorType.valueOf(liquorType);
+        productionEntry.setGST(req.getParameter("GST"));
+        productionEntry.setConsumptionQties(req.getParameterValues("consumptionQty"));
+        productionEntry.setProcessingRate(req.getParameter("processingRate"));
+        productionEntry.setUdCakeQty(req.getParameter("udCake"));
+
+        System.out.println(productionEntry.toString());
     }
 }
 
