@@ -1,0 +1,14 @@
+CREATE TABLE `default`.`sales` (
+  `DepartmentName` VARCHAR(45) NOT NULL,
+  `Date` DATETIME NOT NULL,
+  `No` INT NOT NULL,
+  `Amount` INT NOT NULL,
+  `ItemName` VARCHAR(45) NOT NULL,
+  `Qty` INT NOT NULL);
+
+  CREATE TABLE `default`.`purchases` (
+  `DepartmentName` VARCHAR(45) NOT NULL,
+  `Date` DATETIME NOT NULL,
+  `Amount` INT NOT NULL,
+  `ItemName` VARCHAR(45) NOT NULL,
+  `Qty` INT NULL);
