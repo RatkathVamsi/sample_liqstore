@@ -8,34 +8,34 @@ import java.util.List;
 
 
 class MySQLCon{
-    public static void main(String args[]){
-        //Purchases purchases = new Purchases();
-        List<Purchases> purchases = new ArrayList<Purchases>();
-
-
-        try{
+    private Connection createConnection() throws ClassNotFoundException, SQLException {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con=DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/default","root","root");
-//here sonoo is database name, root is username and password
-            Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from purchases");
-            while(rs.next()) {
-                //System.out.println(rs.getString(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
-                Purchases purchase = new Purchases();
-                purchase.setDepartmentName(rs.getString(1));
-                purchase.setDate(rs.getDate(2));
-                purchase.setAmount(rs.getInt(3));
-                purchase.setItemName(rs.getString(4));
-                purchase.setQty(rs.getInt(5));
-                purchases.add(purchase);
-            }
+            System.out.println("SQL connection created");
+        return con;
+    }
+    public List<Purchases> getPurchases() throws SQLException, ClassNotFoundException {
+        List<Purchases> purchases = new ArrayList<Purchases>();
 
-            for (Purchases purchase : purchases) {
-                System.out.println(purchase.toString());
-            }
+        Statement stmt=createConnection().createStatement();
+        ResultSet rs=stmt.executeQuery("SELECT ItemName,sum(Qty),sum(Amount) FROM purchases group by ItemName;");
+        while(rs.next()) {
+            //System.out.println(rs.getString(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
+            Purchases purchase = new Purchases();
+            //   purchase.setDepartmentName(rs.getString(1));
+            //purchase.setDate(rs.getDate(2));
+            purchase.setAmount(rs.getInt(3));
+            purchase.setItemName(rs.getString(1));
+            purchase.setQty(rs.getInt(2));
+            purchases.add(purchase);
+        }
 
-            con.close();
-        }catch(Exception e){ System.out.println(e);}
+        for (Purchases purchase : purchases) {
+            System.out.println(purchase.toString());
+        }
+
+        return purchases;
+
     }
 }
