@@ -31,7 +31,7 @@ public class TestServlet extends HttpServlet {
             }
 
             req.setAttribute("purchases", purchases);
-            RequestDispatcher view = req.getRequestDispatcher("NewProductionEntry.html");
+            RequestDispatcher view = req.getRequestDispatcher("NewProductionEntry.jsp");
             view.forward(req, resp);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
