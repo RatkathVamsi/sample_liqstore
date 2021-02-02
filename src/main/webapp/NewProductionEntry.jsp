@@ -1,3 +1,5 @@
+<%@ page import ="java.util.*" %>
+<%@ page import ="com.sample.model.Purchases" %>;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,10 +12,15 @@
         $("#header").load("header.html");
         $("#footer").load("footer.html");
         });
-       // var val1 = <%=request.getAttribute("purchases")%>;needtoedit
+
     </script>
 </head>
-<body onload="createTable()">
+<body>
+<%
+List<Purchases> result= (List) request.getAttribute("purchases");
+Iterator it = result.iterator();
+
+%>
 <!--<div style="background-color:black;color:white;padding:30px;">-->
 <div id="header"></div>
 <h1 style="display: flex; justify-content: center"> Production Entries</h1>
@@ -44,101 +51,24 @@
             <th>Stock</th>
         </tr>
 
-        <tr>
-            <td>UD Cotton Seed</td>
-            <td>0</td>
-            <td>54300</td>
-            <td>1107946.00</td>
-            <td>0</td>
-            <td><input type="number" id="udcottonseed" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
-            <td>0%</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-
-        <tr>
-            <td>UD Hulls</td>
-            <td>0</td>
-            <td>36695</td>
-            <td>727709.00</td>
-            <td>0</td>
-            <td><input type="number" id="udhulls" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
-            <td>0%</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-
-        <tr>
-            <td>Rice Brawn</td>
-            <td>0</td>
-            <td>4250</td>
-            <td>199125.00</td>
-            <td>0</td>
-            <td><input type="number" id="ricebrawn" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
-            <td>0%</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-
-        <tr>
-            <td>Rice Powder</td>
-            <td>0</td>
-            <td>23050</td>
-            <td>474150.00</td>
-            <td>0</td>
-            <td><input type="number" id="ricepowder" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
-            <td>0%</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-
-        <tr>
-            <td>Shell Powder</td>
-            <td>0</td>
-            <td>10265</td>
-            <td>92384.53</td>
-            <td>0</td>
-            <td><input type="number" id="shellpowder" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
-            <td>0%</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-
-        <tr>
-            <td>PDL Powder</td>
-            <td>0</td>
-            <td>14990</td>
-            <td>27000.00</td>
-            <td>0</td>
-            <td><input type="number" id="pdlpowder" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
-            <td>0%</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-
-        <tr>
-            <td>UD Gunny Bags</td>
-            <td>0</td>
-            <td>3225</td>
-            <td>105300.00</td>
-            <td>0</td>
-            <td><input type="number" id="udgunnybags" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
-            <td>0%</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-
-        <tr>
-            <td>Colour</td>
-            <td>0</td>
-            <td>175</td>
-            <td>45500.00</td>
-            <td>0</td>
-            <td><input type="number" id="colour" name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
-            <td>0%</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
+        <%
+            while(it.hasNext()){
+            Purchases purchase =(Purchases) it.next() ;
+        %>
+         <tr>
+                    <td><%= purchase.getItemName() %></td>
+                    <td>0</td>
+                    <td><%= purchase.getQty() %></td>
+                    <td><%= purchase.getAmount() %></td>
+                    <td>0</td>
+                    <td><input type="number" id=<%= purchase.getItemName() %> name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
+                    <td>0%</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+        <%
+            }
+        %>
 
         <tr>
             <td>Total</td>
@@ -331,73 +261,6 @@ function changeconsumptionqty(input1)
    	}
     changeudCake("udcake",'10');
 }
-
-
-    var arrHead = new Array();
-    arrHead = ['Product Name', 'Prev stock', 'Purchase Qty','PurchaseAmount','AvgCost','ConsumptionQty','Consumption%','Consumption Cost','Stock']; // table headers.
-
-    // first create a TABLE structure by adding few headers.
-    function createTable() {
-        var empTable = document.createElement('table');
-        empTable.setAttribute('id', 'empTable');  // table id.
-
-        var tr = empTable.insertRow(-1);
-
-
-        for (var h = 0; h < arrHead.length; h++) {
-            var th = document.createElement('th'); // the header object.
-            th.innerHTML = arrHead[h];
-            tr.appendChild(th);
-        }
-
-        var div = document.getElementById('TableDisplay');
-        div.appendChild(empTable);    // add table to a container.
-
-
-         alert(val1);
-
-        addRow();
-    }
-
-    // function to add new row.
-    function addRow() {
-        var empTab = document.getElementById('empTable');
-
-        var rowCnt = empTab.rows.length;    // get the number of rows.
-        alert(rowCnt);
-        var tr = empTab.insertRow(rowCnt); // table row.
-        tr = empTab.insertRow(rowCnt);
-
-        for (var c = 0; c < arrHead.length; c++) {
-            var td = document.createElement('td');          // TABLE DEFINITION.
-            td = tr.insertCell(c);
-
-            if (c == 0) {   // if its the first column of the table.
-               td.innerHTML="Cotton";
-            }
-            else if(c==1) { td.innerHTML=0;}
-            else if(c==2) { td.innerHTML=15;}
-            else if(c==3) { td.innerHTML=0;}
-            else if(c==4) { td.innerHTML=0;}
-
-            else if(c==5) {
-                // the 2nd, 3rd and 4th column, will have textbox.
-                var ele = document.createElement('input');
-                ele.setAttribute('type', 'text');
-                ele.setAttribute('value', '');
-
-
-                td.appendChild(ele);
-            }
-            else if(c==6){ td.innerHTML=0;}
-            else if(c==7) { td.innerHTML=0;}
-            else if(c==8) { td.innerHTML=0;}
-        }
-    }
-
-
-
-    // function to extract and submit table data.
 
 </script>
 </html>
