@@ -14,7 +14,8 @@
     </script>
 </head>
 <body>
-<div id="UploadData" style="padding:20px;display:none;">
+<form action = "AddData" method = "post" enctype = "multipart/form-data">
+<div id="UploadData" style="padding:20px;">
     <label>Upload Sales file: </label>
     <input type="file" id="salesFile" name="sales">
     <br>
@@ -22,8 +23,8 @@
     <input type="file" id="purchasesFile" name="purchases">
     <br>
     <input type="submit">
-
 </div>
+</form>
 </body>
 
 <script>
