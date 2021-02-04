@@ -38,4 +38,19 @@ class MySQLCon{
         return purchases;
 
     }
+
+    public void insertPurchases(List<Purchases> purchasesList) throws SQLException, ClassNotFoundException {
+        Statement stmt=createConnection().createStatement();
+        for(int i=0;i< purchasesList.size();i++)
+        {   Purchases purchases = purchasesList.get(i);
+
+             stmt.execute("INSERT INTO purchases VALUES ("+
+                    purchases.getDepartmentName()+","+
+                    purchases.getDate()+"," +
+                    purchases.getQty()+","+
+                    purchases.getItemName()+","+
+                    purchases.getAmount()+
+                    ")");
+        }
+    }
 }

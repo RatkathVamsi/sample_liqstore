@@ -5,9 +5,9 @@ import java.sql.Date;
 public class Purchases {
     private String departmentName;
     private Date date;
-    private int amount;
+    private float amount;
     private String itemName;
-    private int qty;
+    private float qty;
 
     public String getDepartmentName() {
         return departmentName;
@@ -36,11 +36,11 @@ public class Purchases {
                 '}';
     }
 
-    public int getAmount() {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 
@@ -52,11 +52,11 @@ public class Purchases {
         this.itemName = itemName;
     }
 
-    public int getQty() {
+    public float getQty() {
         return qty;
     }
 
-    public void setQty(int qty) {
+    public void setQty(float qty) {
         this.qty = qty;
     }
 }
