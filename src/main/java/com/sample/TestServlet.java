@@ -22,13 +22,17 @@ public class TestServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        MySQLCon db = new MySQLCon();
+        MySQLCon db = null;
+        try {
+            db = new MySQLCon();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         try {
 
             List<Purchases> purchases = db.getPurchases();
-            for (Purchases purchase : purchases) {
-                System.out.println(purchase.toString());
-            }
 
             req.setAttribute("purchases", purchases);
             RequestDispatcher view = req.getRequestDispatcher("NewProductionEntry.jsp");

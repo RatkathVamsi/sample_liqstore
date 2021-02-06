@@ -2,6 +2,7 @@ package com.sample;
 
 import com.opencsv.CSVReader;
 import com.sample.model.Purchases;
+import com.sample.model.Sales;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @WebServlet(
@@ -44,7 +46,7 @@ public class AddDataServlet extends HttpServlet {
         InputStream fileContent = filePart.getInputStream();
         System.out.println("Inside dopost method");
 
-        Reader in = new InputStreamReader(fileContent);
+        //Reader in = new InputStreamReader(fileContent);
 
         CSVReader reader;
         Iterator<String[]> iterator;
@@ -62,17 +64,45 @@ public class AddDataServlet extends HttpServlet {
                 Purchases purchases= new Purchases();
                 String[] row= iterator.next();
                 purchases.setDepartmentName(row[0]);
-               // purchases.setDate(Date.valueOf(row[1]));
+                purchases.setDate(row[1]);
                 purchases.setQty(Float.parseFloat(row[4]));
                 purchases.setItemName(row[3]);
                 purchases.setAmount(Float.parseFloat(row[2]));
 
                purchasesList.add(purchases);
             }
+
+            Part fileSales = req.getPart("sales"); // Retrieves <input type="file" name="file">
+            // String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+            InputStream fileContentSales = fileSales.getInputStream();
+            System.out.println("Inside dopost method");
+
+            //Reader inSales = new InputStreamReader(fileContentSales);
+
+            reader = new CSVReader(new InputStreamReader(fileContentSales));
+            iterator = reader.iterator();
+
+            List<Sales> salesList= new ArrayList<Sales>();
+            iterator.next();
+            while(iterator.hasNext())
+            {
+                //System.out.println(Arrays.toString(iterator.next()));
+                Sales sales= new Sales();
+                String[] row= iterator.next();
+                sales.setDepartmentName(row[0]);
+                sales.setDate(row[1]);
+                sales.setQty(Float.parseFloat(row[5]));
+                sales.setItemName(row[4]);
+                sales.setAmount(Float.parseFloat(row[3]));
+                sales.setNo(Integer.parseInt(row[2]));
+
+                salesList.add(sales);
+            }
             System.out.println("inserting into database");
             MySQLCon db = new MySQLCon();
             db.insertPurchases(purchasesList);
-            in.close();
+            db.insertSales(salesList);
+            //in.close();
 
         }catch(Exception e) {System.out.println(e);}
 
