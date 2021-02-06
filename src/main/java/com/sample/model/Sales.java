@@ -1,13 +1,24 @@
 package com.sample.model;
 
-import java.sql.Date;
-
-public class Purchases {
+public class Sales {
     private String departmentName;
     private String date;
+    private int no;
     private float amount;
     private String itemName;
     private float qty;
+
+    @Override
+    public String toString() {
+        return "Sales{" +
+                "departmentName='" + departmentName + '\'' +
+                ", date='" + date + '\'' +
+                ", no=" + no +
+                ", amount=" + amount +
+                ", itemName='" + itemName + '\'' +
+                ", qty=" + qty +
+                '}';
+    }
 
     public String getDepartmentName() {
         return departmentName;
@@ -25,15 +36,12 @@ public class Purchases {
         this.date = date;
     }
 
-    @Override
-    public String toString() {
-        return "purchases{" +
-                "departmentName='" + departmentName + '\'' +
-                ", date=" + date +
-                ", amount=" + amount +
-                ", itemName='" + itemName + '\'' +
-                ", qty=" + qty +
-                '}';
+    public int getNo() {
+        return no;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
     }
 
     public float getAmount() {
@@ -59,4 +67,6 @@ public class Purchases {
     public void setQty(float qty) {
         this.qty = qty;
     }
+
+
 }
