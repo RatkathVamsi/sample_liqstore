@@ -1,6 +1,7 @@
 package com.sample;
 
 import com.sample.model.Purchases;
+import com.sample.model.Sales;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,8 +34,9 @@ public class TestServlet extends HttpServlet {
         try {
 
             List<Purchases> purchases = db.getPurchases();
-
+            List<Sales> sales = db.getSales();
             req.setAttribute("purchases", purchases);
+            req.setAttribute("sales",sales);
             RequestDispatcher view = req.getRequestDispatcher("NewProductionEntry.jsp");
             view.forward(req, resp);
         } catch (SQLException throwables) {

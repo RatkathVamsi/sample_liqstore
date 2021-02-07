@@ -47,6 +47,30 @@ class MySQLCon {
 
     }
 
+    public List<Sales> getSales() throws SQLException, ClassNotFoundException {
+        List<Sales> sales = new ArrayList<Sales>();
+
+        Statement stmt = createConnection().createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT ItemName,sum(Qty),sum(Amount) FROM sales where ItemName='UD Cake' group by ItemName;");
+        while (rs.next()) {
+            //System.out.println(rs.getString(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
+            Sales sale = new Sales();
+            // purchase.setDepartmentName(rs.getString(1));
+            //purchase.setDate(String.valueOf(rs.getDate(2)));
+            sale.setAmount(rs.getInt(3));
+            sale.setItemName(rs.getString(1));
+            sale.setQty(rs.getInt(2));
+            sales.add(sale);
+        }
+
+        for (Sales sale : sales) {
+            System.out.println(sale.toString());
+        }
+
+        return sales;
+
+    }
+
     public void insertPurchases(List<Purchases> purchasesList) throws SQLException, ClassNotFoundException, ParseException {
         Connection con=  createConnection();
         for (int i = 0; i < purchasesList.size(); i++) {
