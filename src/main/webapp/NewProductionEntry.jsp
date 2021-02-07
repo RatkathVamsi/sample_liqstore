@@ -1,5 +1,6 @@
 <%@ page import ="java.util.*" %>
 <%@ page import ="com.sample.model.Purchases" %>;
+<%@ page import ="com.sample.model.Sales" %>;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +19,9 @@
 <body>
 <%
 List<Purchases> result= (List) request.getAttribute("purchases");
+List<Sales> result1= (List) request.getAttribute("sales");
 Iterator it = result.iterator();
+Iterator it1= result1.iterator();
 
 %>
 <!--<div style="background-color:black;color:white;padding:30px;">-->
@@ -82,6 +85,26 @@ Iterator it = result.iterator();
             <td></td>
         </tr>
 
+             <%
+                    while(it1.hasNext()){
+                    Sales sale =(Sales) it1.next() ;
+                %>
+                 <tr>
+                            <td><%= sale.getItemName() %></td>
+                            <td>0</td>
+                            <td><%= sale.getQty() %></td>
+                            <td><%= sale.getAmount() %></td>
+                            <td>0</td>
+                            <td><input type="number" id=<%= sale.getItemName() %> name="udCake" value="0" onchange="changeudCake(this.id,'10')"></td>
+                            <td>0%</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                <%
+                    }
+                %>
+
+<!--
         <tr>
             <td>UD Cake</td>
             <td>0</td>
@@ -94,7 +117,7 @@ Iterator it = result.iterator();
             <td>0</td>
         </tr>
 
-
+-->
         <tr>
             <td>Wastage</td>
             <td></td>
