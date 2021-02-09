@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -25,20 +26,47 @@ class MySQLCon {
 
     public List<Purchases> getPurchases() throws SQLException, ClassNotFoundException {
         List<Purchases> purchases = new ArrayList<Purchases>();
+        String purchasesFilter[] = {"UD Cotton Seed",
+                "UD Hulls",
+                "Rice Brawn",
+                "Rice Powder",
+                "Shell powder",
+                "PDL Powder",
+                "UD Gunny Bags",
+                "Colour"
+        };
 
         Statement stmt = createConnection().createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT ItemName,sum(Qty),sum(Amount) FROM purchases group by ItemName;");
+        ResultSet rs = stmt.executeQuery("SELECT ItemName,sum(Qty),sum(Amount) FROM purchases  where Date > (SELECT endDate FROM transaction where id= last_insert_id()) group by ItemName ;");
+        int count = 0;
+
         while (rs.next()) {
-            //System.out.println(rs.getString(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
-            Purchases purchase = new Purchases();
-           // purchase.setDepartmentName(rs.getString(1));
-            //purchase.setDate(String.valueOf(rs.getDate(2)));
-            purchase.setAmount(rs.getInt(3));
-            purchase.setItemName(rs.getString(1));
-            purchase.setQty(rs.getInt(2));
-            purchases.add(purchase);
+            ++count;
+            // Get data from the current row and use it
         }
 
+
+            System.out.println(count);
+
+
+        while (rs.next()) {
+            String itemName = rs.getString(1);
+
+            if(Arrays.stream(purchasesFilter).filter(x->x.equalsIgnoreCase(itemName)).count() >0)
+            //if(Arrays.asList(purchasesFilter).contains(rs.getString(1)))
+            {
+                //System.out.println(rs.getString(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
+                Purchases purchase = new Purchases();
+
+                // purchase.setDepartmentName(rs.getString(1));
+                //purchase.setDate(String.valueOf(rs.getDate(2)));
+                purchase.setAmount(rs.getInt(3));
+                purchase.setItemName(rs.getString(1));
+                purchase.setQty(rs.getInt(2));
+
+                purchases.add(purchase);
+            }
+        }
         for (Purchases purchase : purchases) {
             System.out.println(purchase.toString());
         }
