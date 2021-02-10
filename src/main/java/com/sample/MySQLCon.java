@@ -37,25 +37,27 @@ class MySQLCon {
         };
 
         Statement stmt = createConnection().createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT ItemName,sum(Qty),sum(Amount) FROM purchases  where Date > (SELECT endDate FROM transaction where id= last_insert_id()) group by ItemName ;");
-        int count = 0;
+        PreparedStatement t_pstmt = createConnection().prepareStatement("SELECT endDate FROM `default`.transaction order by endDate;");
+        ResultSet t_resultset = t_pstmt.executeQuery();
 
-        while (rs.next()) {
-            ++count;
-            // Get data from the current row and use it
+
+        //ResultSet temp = stmt.executeQuery("SELECT last_insert_id() FROM `default`.transaction;");
+        Date endDate = Date.valueOf("1950-06-13");
+        while( t_resultset.next()){
+
+            endDate = t_resultset.getDate(1);
+
         }
-
-
-            System.out.println(count);
-
+        System.out.println(endDate);
+        ResultSet rs = stmt.executeQuery("SELECT ItemName,sum(Qty),sum(Amount) FROM `default`.purchases  where Date >" + endDate + " group by ItemName ;");
 
         while (rs.next()) {
             String itemName = rs.getString(1);
-
+            //System.out.println(rs.getString(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
             if(Arrays.stream(purchasesFilter).filter(x->x.equalsIgnoreCase(itemName)).count() >0)
             //if(Arrays.asList(purchasesFilter).contains(rs.getString(1)))
             {
-                //System.out.println(rs.getString(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
+
                 Purchases purchase = new Purchases();
 
                 // purchase.setDepartmentName(rs.getString(1));
@@ -68,7 +70,7 @@ class MySQLCon {
             }
         }
         for (Purchases purchase : purchases) {
-            System.out.println(purchase.toString());
+           // System.out.println(purchase.toString());
         }
 
         return purchases;
