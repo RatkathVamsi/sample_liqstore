@@ -63,7 +63,7 @@ class MySQLCon {
                 // purchase.setDepartmentName(rs.getString(1));
                 //purchase.setDate(String.valueOf(rs.getDate(2)));
                 purchase.setAmount(rs.getInt(3));
-                purchase.setItemName(rs.getString(1));
+                purchase.setItemName(rs.getString(1).toLowerCase().replace(" ",""));
                 purchase.setQty(rs.getInt(2));
 
                 purchases.add(purchase);
@@ -88,7 +88,7 @@ class MySQLCon {
             // purchase.setDepartmentName(rs.getString(1));
             //purchase.setDate(String.valueOf(rs.getDate(2)));
             sale.setAmount(rs.getInt(3));
-            sale.setItemName(rs.getString(1));
+            sale.setItemName(rs.getString(1).toLowerCase().replace(" ",""));
             sale.setQty(rs.getInt(2));
             sales.add(sale);
         }
