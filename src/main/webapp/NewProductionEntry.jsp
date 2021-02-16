@@ -199,6 +199,8 @@ function changeudCake(input1,row)
 	var cqTotal=parseInt(document.getElementById("cqtotal").innerHTML);
 
     var consumptionQty=parseInt(document.getElementById(input1).value);
+
+
     var table = document.getElementById("mytab1");
 
     var cpColumn= 6;
@@ -228,6 +230,7 @@ function changeudCake(input1,row)
         table.rows[row].cells[stockColumn].innerHTML=previousStock+currentStock-consumptionQty;
 
        //table.rows[row+1].cells[5].innerHTML = cqTotal-consumptionQty;
+
        document.getElementById("wastagetotal").innerHTML=cqTotal-consumptionQty;
        document.getElementById("wastagepercent").innerHTML= parseFloat(100- z).toFixed(2)+"%";
 
