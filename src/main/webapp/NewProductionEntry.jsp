@@ -1,6 +1,6 @@
 <%@ page import ="java.util.*" %>
-<%@ page import ="com.sample.model.Purchases" %>;
-<%@ page import ="com.sample.model.Sales" %>;
+<%@ page import ="com.sample.model.Purchases" %>
+<%@ page import ="com.sample.model.Sales" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,6 +20,8 @@
 <%
 List<Purchases> result= (List) request.getAttribute("purchases");
 List<Sales> result1= (List) request.getAttribute("sales");
+String endDate = (String) request.getAttribute("endDate");
+String startDate = (String) request.getAttribute("startDate");
 Iterator it = result.iterator();
 Iterator it1= result1.iterator();
 
@@ -41,6 +43,8 @@ Iterator it1= result1.iterator();
   padding: 8px;
 }
 </style>
+    <h3> <%= startDate %> To <%= endDate %></h3>
+
     <table id="mytab1">
         <tr>
             <th>Product Name</th>
