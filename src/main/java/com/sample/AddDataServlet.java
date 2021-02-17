@@ -64,7 +64,7 @@ public class AddDataServlet extends HttpServlet {
                 Purchases purchases= new Purchases();
                 String[] row= iterator.next();
                 purchases.setDepartmentName(row[0]);
-                purchases.setDate(row[1]);
+                purchases.setDate(Date.valueOf(row[1]));
                 purchases.setQty(Float.parseFloat(row[4]));
                 purchases.setItemName(row[3]);
                 purchases.setAmount(Float.parseFloat(row[2]));

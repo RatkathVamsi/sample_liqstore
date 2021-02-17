@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Purchases {
     private String departmentName;
-    private String date;
+    private Date date;
     private float amount;
     private String itemName;
     private float qty;
@@ -17,11 +17,11 @@ public class Purchases {
         this.departmentName = departmentName;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

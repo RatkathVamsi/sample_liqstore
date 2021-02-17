@@ -35,21 +35,10 @@ class MySQLCon {
                 "UD Gunny Bags",
                 "Colour"
         };
-
         Statement stmt = createConnection().createStatement();
-        PreparedStatement t_pstmt = createConnection().prepareStatement("SELECT endDate FROM `default`.transaction order by endDate;");
-        ResultSet t_resultset = t_pstmt.executeQuery();
+        Date startDate = getStartDate();
 
-
-        //ResultSet temp = stmt.executeQuery("SELECT last_insert_id() FROM `default`.transaction;");
-        Date endDate = Date.valueOf("1950-06-13");
-        while( t_resultset.next()){
-
-            endDate = t_resultset.getDate(1);
-
-        }
-        System.out.println(endDate);
-        ResultSet rs = stmt.executeQuery("SELECT ItemName,sum(Qty),sum(Amount) FROM `default`.purchases  where Date >" + endDate + " group by ItemName ;");
+        ResultSet rs = stmt.executeQuery("SELECT ItemName,sum(Qty),sum(Amount) FROM `default`.purchases  where Date >=" + startDate + " group by ItemName ;");
 
         while (rs.next()) {
             String itemName = rs.getString(1);
@@ -61,10 +50,11 @@ class MySQLCon {
                 Purchases purchase = new Purchases();
 
                 // purchase.setDepartmentName(rs.getString(1));
-                //purchase.setDate(String.valueOf(rs.getDate(2)));
+                //purchase.setDate(rs.getDate(4));
                 purchase.setAmount(rs.getInt(3));
                 purchase.setItemName(rs.getString(1).toLowerCase().replace(" ",""));
                 purchase.setQty(rs.getInt(2));
+
 
                 purchases.add(purchase);
             }
@@ -75,6 +65,27 @@ class MySQLCon {
 
         return purchases;
 
+    }
+
+    public Date getStartDate() throws SQLException, ClassNotFoundException {
+        Statement stmt = createConnection().createStatement();
+        PreparedStatement t_pstmt = createConnection().prepareStatement("SELECT endDate FROM `default`.transaction order by endDate;");
+        ResultSet t_resultset = t_pstmt.executeQuery();
+
+
+        //ResultSet temp = stmt.executeQuery("SELECT last_insert_id() FROM `default`.transaction;");
+        Date prevEndDate = Date.valueOf("1950-06-13");
+
+
+        Date startDate = Date.valueOf(prevEndDate.toLocalDate().plusDays(1));
+        Date endDate = startDate;
+       /* while( t_resultset.next()){
+
+            prevEndDate = t_resultset.getDate(1);
+
+        }
+        System.out.println(prevEndDate);*/
+        return startDate;
     }
 
     public List<Sales> getSales() throws SQLException, ClassNotFoundException {
@@ -110,7 +121,7 @@ class MySQLCon {
             String query = "INSERT INTO purchases VALUES (?,?,?,?,?)";
 
             DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-            java.util.Date myDate = formatter.parse(purchase.getDate());
+            java.util.Date myDate = formatter.parse(String.valueOf(purchase.getDate()));
             java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
 
             // create the mysql insert PreparedStatement
@@ -152,5 +163,22 @@ class MySQLCon {
             preparedStmt.execute();
         }
 
+    }
+
+
+    public Date getEndDate() throws SQLException, ClassNotFoundException {
+        Statement stmt = createConnection().createStatement();
+        PreparedStatement t_pstmt = createConnection().prepareStatement("SELECT Date FROM `default`.purchases order by Date;");
+        ResultSet t_resultset = t_pstmt.executeQuery();
+
+        Date endDate = null;
+       while( t_resultset.next()){
+
+            endDate = t_resultset.getDate(1);
+
+        }
+        System.out.println(endDate);
+
+        return endDate;
     }
 }

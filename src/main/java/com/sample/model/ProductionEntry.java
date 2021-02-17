@@ -8,6 +8,7 @@ public class ProductionEntry {
     private String udCakeQty;
     private String consumptionQties[];
 
+
     public String getGST() {
         return GST;
     }
