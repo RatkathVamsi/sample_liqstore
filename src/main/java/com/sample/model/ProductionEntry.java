@@ -1,35 +1,65 @@
 package com.sample.model;
 
+import java.sql.Date;
 import java.util.Arrays;
 
 public class ProductionEntry {
-    private String GST;
-    private String processingRate;
-    private String udCakeQty;
+    private Float GST;
+    private Float processingRate;
+    private Float udCakeQty;
     private String consumptionQties[];
+    private Date startDate;
+    private Date endDate;
 
+    public Date getStartDate() {
+        return startDate;
+    }
 
-    public String getGST() {
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductionEntry{" +
+                "GST='" + GST + '\'' +
+                ", processingRate='" + processingRate + '\'' +
+                ", udCakeQty='" + udCakeQty + '\'' +
+                ", consumptionQties=" + Arrays.toString(consumptionQties) +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Float getGST() {
         return GST;
     }
 
-    public void setGST(String GST) {
+    public void setGST(Float GST) {
         this.GST = GST;
     }
 
-    public String getProcessingRate() {
+    public Float getProcessingRate() {
         return processingRate;
     }
 
-    public void setProcessingRate(String processingRate) {
+    public void setProcessingRate(Float processingRate) {
         this.processingRate = processingRate;
     }
 
-    public String getUdCakeQty() {
+    public Float getUdCakeQty() {
         return udCakeQty;
     }
 
-    public void setUdCakeQty(String udCakeQty) {
+    public void setUdCakeQty(Float udCakeQty) {
         this.udCakeQty = udCakeQty;
     }
 
@@ -41,13 +71,5 @@ public class ProductionEntry {
         this.consumptionQties = consumptionQties;
     }
 
-    @Override
-    public String toString() {
-        return "ProductionEntry{" +
-                "GST='" + GST + '\'' +
-                ", processingRate='" + processingRate + '\'' +
-                ", udCakeQty='" + udCakeQty + '\'' +
-                ", consumptionQties=" + Arrays.toString(consumptionQties) +
-                '}';
-    }
+
 }

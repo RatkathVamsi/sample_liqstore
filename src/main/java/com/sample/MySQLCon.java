@@ -1,5 +1,6 @@
 package com.sample;
 
+import com.sample.model.ProductionEntry;
 import com.sample.model.Purchases;
 import com.sample.model.Sales;
 
@@ -13,14 +14,17 @@ import java.util.List;
 
 
 class MySQLCon {
+    Connection con= null;
     MySQLCon() throws SQLException, ClassNotFoundException {
     }
 
     private Connection createConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/default", "root", "root");
-        System.out.println("SQL connection created");
+        if(con==null){
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/default", "root", "root");
+            System.out.println("SQL connection created");
+        }
         return con;
     }
 
@@ -51,9 +55,9 @@ class MySQLCon {
 
                 // purchase.setDepartmentName(rs.getString(1));
                 //purchase.setDate(rs.getDate(4));
-                purchase.setAmount(rs.getInt(3));
+                purchase.setAmount(rs.getFloat(3));
                 purchase.setItemName(rs.getString(1).toLowerCase().replace(" ",""));
-                purchase.setQty(rs.getInt(2));
+                purchase.setQty(rs.getFloat(2));
 
 
                 purchases.add(purchase);
@@ -98,9 +102,9 @@ class MySQLCon {
             Sales sale = new Sales();
             // purchase.setDepartmentName(rs.getString(1));
             //purchase.setDate(String.valueOf(rs.getDate(2)));
-            sale.setAmount(rs.getInt(3));
+            sale.setAmount(rs.getFloat(3));
             sale.setItemName(rs.getString(1).toLowerCase().replace(" ",""));
-            sale.setQty(rs.getInt(2));
+            sale.setQty(rs.getFloat(2));
             sales.add(sale);
         }
 
@@ -128,7 +132,7 @@ class MySQLCon {
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setString(1, purchase.getDepartmentName());
             preparedStmt.setDate(2, sqlDate);
-            preparedStmt.setFloat(3, purchase.getAmount());
+            preparedStmt.setFloat(3, Float.parseFloat(purchase.getAmount()));
             preparedStmt.setString(4, purchase.getItemName());
             preparedStmt.setFloat(5, purchase.getQty());
 
@@ -155,7 +159,7 @@ class MySQLCon {
             preparedStmt.setString(1, sale.getDepartmentName());
             preparedStmt.setDate(2, sqlDate);
             preparedStmt.setInt(3,sale.getNo());
-            preparedStmt.setFloat(4, sale.getAmount());
+            preparedStmt.setFloat(4, Float.parseFloat(sale.getAmount()));
             preparedStmt.setString(5, sale.getItemName());
             preparedStmt.setFloat(6, sale.getQty());
 
@@ -180,5 +184,20 @@ class MySQLCon {
         System.out.println(endDate);
 
         return endDate;
+    }
+
+    public void insertProductionEntry(ProductionEntry productionEntry) throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        String query = "INSERT INTO transaction(gst,processingRate,udCakeQty,startDate,endDate) VALUES (?,?,?,?,?)";
+
+        // create the mysql insert PreparedStatement
+        PreparedStatement preparedStmt = con.prepareStatement(query);
+        preparedStmt.setFloat(1, productionEntry.getGST());
+        preparedStmt.setFloat(2,productionEntry.getProcessingRate());
+        preparedStmt.setFloat(3,productionEntry.getUdCakeQty());
+        preparedStmt.setDate(4,productionEntry.getStartDate());
+        preparedStmt.setDate(5,productionEntry.getEndDate());
+
+        preparedStmt.execute();
     }
 }

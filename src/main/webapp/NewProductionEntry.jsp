@@ -43,7 +43,9 @@ Iterator it1= result1.iterator();
   padding: 8px;
 }
 </style>
-    <h3> <%= startDate %> To <%= endDate %></h3>
+    <h3> <%= startDate %>  To  <%= endDate %> </h3>
+    <input type="text" id="startDate" name="startDate" value=<%= startDate %> hidden >
+    <input type="text" id="endDate" name="endDate" value=<%= endDate %> hidden >
 
     <table id="mytab1">
         <tr>
@@ -275,6 +277,7 @@ function changeconsumptionqty(input1)
         col.innerHTML=(temp*100/parseInt(cqTotal.innerHTML)).toFixed(2)+"%";
 
       	var avgCost= parseFloat(table.rows[i].cells[salesColumn].innerHTML) / 		parseInt(table.rows[i].cells[quantityColumn].innerHTML);
+
  	    //consumption cost= consumption qty* avg cost
 		  table.rows[i].cells[avgcostColumn].innerHTML=avgCost.toFixed(2);
 

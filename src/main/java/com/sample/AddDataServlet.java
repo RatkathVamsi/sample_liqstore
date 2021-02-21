@@ -98,6 +98,7 @@ public class AddDataServlet extends HttpServlet {
 
                 salesList.add(sales);
             }
+
             System.out.println("inserting into database");
             MySQLCon db = new MySQLCon();
             db.insertPurchases(purchasesList);
