@@ -12,6 +12,7 @@ public class ProductionEntry {
     private Date endDate;
     private String[] itemNames;
 
+
     public Float getGST() {
         return GST;
     }
