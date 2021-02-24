@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -27,20 +28,22 @@ public class createProductionEntryServlet extends HttpServlet {
         ProductionEntry productionEntry= new ProductionEntry();
 
         productionEntry.setGST(Float.valueOf(req.getParameter("GST")));
-        productionEntry.setConsumptionQties(req.getParameterValues("consumptionQty"));
         productionEntry.setProcessingRate(Float.valueOf(req.getParameter("processingRate")));
         productionEntry.setUdCakeQty(Float.valueOf(req.getParameter("udCake")));
         productionEntry.setStartDate(Date.valueOf(req.getParameter("startDate")));
         productionEntry.setEndDate(Date.valueOf(req.getParameter("endDate")));
 
-
-
+        productionEntry.setConsumptionQties(req.getParameterValues("consumptionQty"));
+        productionEntry.setItemNames(req.getParameterValues("itemName"));
+        productionEntry.setStock(req.getParameterValues("stock"));
+        System.out.println(Arrays.toString(req.getParameterValues("itemName")));
         System.out.println(productionEntry.toString());
 
         // Inserting Production entry into Database
         try {
             MySQLCon db = new MySQLCon();
             db.insertProductionEntry(productionEntry);
+            db.insertRecords(productionEntry);
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }

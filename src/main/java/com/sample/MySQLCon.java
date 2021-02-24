@@ -200,4 +200,28 @@ class MySQLCon {
 
         preparedStmt.execute();
     }
+
+    public void insertRecords(ProductionEntry productionEntry) throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        String query1= "select max(id) as id From `default`.transaction ;";
+        Statement stmt = createConnection().createStatement();
+        ResultSet rs = stmt.executeQuery(query1);
+        int id=0;
+        while(rs.next())
+        { id = rs.getInt(1);  }
+
+        for(int i=0;i<productionEntry.getItemNames().length;i++)
+        {
+            String query = "INSERT INTO records VALUES (?,?,?,?)";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setInt(1,id);
+            preparedStmt.setString(2,productionEntry.getItemNames()[i]);
+            preparedStmt.setFloat(3, Float.parseFloat(productionEntry.getConsumptionQties()[i]));
+            preparedStmt.setFloat(4, Float.parseFloat(productionEntry.getStock()[i]));
+
+            preparedStmt.execute();
+        }
+
+
+    }
 }

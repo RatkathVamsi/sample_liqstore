@@ -61,11 +61,14 @@ Iterator it1= result1.iterator();
         </tr>
 
         <%
+            int i=1;
             while(it.hasNext()){
             Purchases purchase =(Purchases) it.next() ;
+            String t = "stock_"+ i;
+            i++;
         %>
          <tr>
-                    <td><%= purchase.getItemName() %></td>
+                    <td><input type="text" id="itemName_"<%= purchase.getItemName() %> name="itemName" value=<%= purchase.getItemName() %> readonly="readonly"></td>
                     <td>0</td>
                     <td><%= purchase.getQty() %></td>
                     <td><%= purchase.getAmount() %></td>
@@ -73,7 +76,7 @@ Iterator it1= result1.iterator();
                     <td><input type="number" id=<%= purchase.getItemName() %> name="consumptionQty" value="0" onchange="changeconsumptionqty(this.id)"></td>
                     <td>0%</td>
                     <td>0</td>
-                    <td>0</td>
+                    <td><input type="number" id=<%= t %> name="stock" value="0" readonly="readonly"></td>
                 </tr>
         <%
             }
@@ -288,8 +291,11 @@ function changeconsumptionqty(input1)
 
         var currentStock= table.rows[i].cells[quantityColumn].innerHTML;
         var previousStock= table.rows[i].cells[prevstockColumn].innerHTML;
+        var t= "stock_"+ i;
 
-        table.rows[i].cells[stockColumn].innerHTML=previousStock+currentStock-temp;
+        document.getElementById(t).value= previousStock+ currentStock - temp;
+
+      //table.rows[i].cells[stockColumn].innerHTML=previousStock+currentStock-temp;
 
    	}
     changeudCake("udcake",'10');

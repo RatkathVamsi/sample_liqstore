@@ -10,6 +10,8 @@ public class ProductionEntry {
     private String consumptionQties[];
     private Date startDate;
     private Date endDate;
+    private String[] itemNames;
+    private String[] stock;
 
     public Date getStartDate() {
         return startDate;
@@ -22,12 +24,14 @@ public class ProductionEntry {
     @Override
     public String toString() {
         return "ProductionEntry{" +
-                "GST='" + GST + '\'' +
-                ", processingRate='" + processingRate + '\'' +
-                ", udCakeQty='" + udCakeQty + '\'' +
+                "GST=" + GST +
+                ", processingRate=" + processingRate +
+                ", udCakeQty=" + udCakeQty +
                 ", consumptionQties=" + Arrays.toString(consumptionQties) +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
+                ", itemNames=" + Arrays.toString(itemNames) +
+                ", stock=" + Arrays.toString(stock) +
                 '}';
     }
 
@@ -72,4 +76,19 @@ public class ProductionEntry {
     }
 
 
+    public void setItemNames(String[] itemNames) {
+        this.itemNames = itemNames;
+    }
+
+    public String[] getItemNames() {
+        return itemNames;
+    }
+
+    public void setStock(String[] stock) {
+        this.stock = stock;
+    }
+
+    public String[] getStock() {
+        return stock;
+    }
 }
