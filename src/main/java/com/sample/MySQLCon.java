@@ -201,6 +201,7 @@ class MySQLCon {
         preparedStmt.execute();
     }
     
+
     public int insertRecords(ProductionEntry productionEntry) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
         String query1= "select max(id) as id From `default`.transaction ;";
