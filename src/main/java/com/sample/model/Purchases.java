@@ -1,6 +1,8 @@
 package com.sample.model;
 
+import java.math.RoundingMode;
 import java.sql.Date;
+import java.text.DecimalFormat;
 
 public class Purchases {
     private String departmentName;
@@ -8,6 +10,8 @@ public class Purchases {
     private float amount;
     private String itemName;
     private float qty;
+
+    DecimalFormat df = new DecimalFormat("#.####");
 
     public String getDepartmentName() {
         return departmentName;
@@ -36,8 +40,8 @@ public class Purchases {
                 '}';
     }
 
-    public float getAmount() {
-        return amount;
+    public String getAmount() {
+        return df.format(amount);
     }
 
     public void setAmount(float amount) {

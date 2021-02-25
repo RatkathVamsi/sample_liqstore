@@ -1,5 +1,7 @@
 package com.sample.model;
 
+import java.text.DecimalFormat;
+
 public class Sales {
     private String departmentName;
     private String date;
@@ -7,7 +9,7 @@ public class Sales {
     private float amount;
     private String itemName;
     private float qty;
-
+    DecimalFormat df = new DecimalFormat("#.####");
     @Override
     public String toString() {
         return "Sales{" +
@@ -44,8 +46,8 @@ public class Sales {
         this.no = no;
     }
 
-    public float getAmount() {
-        return amount;
+    public String getAmount() {
+        return df.format(amount);
     }
 
     public void setAmount(float amount) {
