@@ -194,14 +194,14 @@ class MySQLCon {
         PreparedStatement preparedStmt = con.prepareStatement(query);
         preparedStmt.setFloat(1, productionEntry.getGST());
         preparedStmt.setFloat(2,productionEntry.getProcessingRate());
-        preparedStmt.setFloat(3,productionEntry.getUdCakeQty());
+        preparedStmt.setFloat(3,0);
         preparedStmt.setDate(4,productionEntry.getStartDate());
         preparedStmt.setDate(5,productionEntry.getEndDate());
 
         preparedStmt.execute();
     }
 
-    public void insertRecords(ProductionEntry productionEntry) throws SQLException, ClassNotFoundException {
+    public int insertRecords(ProductionEntry productionEntry) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
         String query1= "select max(id) as id From `default`.transaction ;";
         Statement stmt = createConnection().createStatement();
@@ -222,6 +222,19 @@ class MySQLCon {
             preparedStmt.execute();
         }
 
+        for(int i=0;i<productionEntry.getSalesItemNames().length;i++)
+        {
+            String query = "INSERT INTO records VALUES (?,?,?,?)";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setInt(1,id);
+            preparedStmt.setString(2,productionEntry.getSalesItemNames()[i]);
+            preparedStmt.setFloat(3, Float.parseFloat(productionEntry.getSalesConsumptionQties()[i]));
+            preparedStmt.setFloat(4, Float.parseFloat(productionEntry.getSalesStock()[i]));
 
+            preparedStmt.execute();
+        }
+
+
+        return id;
     }
 }

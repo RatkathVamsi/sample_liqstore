@@ -1,8 +1,9 @@
+<%@ page import ="java.util.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ADD DATA</title>
+    <title>Result</title>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
     <script type="text/javascript">
@@ -14,16 +15,15 @@
     </script>
 </head>
 <body>
+<%
+    Integer id= (Integer) request.getAttribute("id");
+%>
 <div id="header"></div>
-<form action = "AddData" method = "post" enctype = "multipart/form-data">
+<form action = "Result" method = "post" enctype = "multipart/form-data">
+
 <div id="UploadData" style="padding:20px;">
-    <label>Upload Sales file: </label>
-    <input type="file" id="salesFile" name="sales">
-    <br>
-    <label>Upload Purchases file: </label>
-    <input type="file" id="purchasesFile" name="purchases">
-    <br>
-    <input type="submit">
+    <h4>Successfully Recorded Transaction. Transaction id= <%= id %></h4>
+
 </div>
 </form>
 <div id="footer"></div>

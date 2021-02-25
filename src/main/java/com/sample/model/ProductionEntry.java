@@ -12,14 +12,9 @@ public class ProductionEntry {
     private Date endDate;
     private String[] itemNames;
     private String[] stock;
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
+    private String[] salesConsumptionQties;
+    private String[] salesItemNames;
+    private String[] salesStock;
 
     @Override
     public String toString() {
@@ -32,7 +27,42 @@ public class ProductionEntry {
                 ", endDate=" + endDate +
                 ", itemNames=" + Arrays.toString(itemNames) +
                 ", stock=" + Arrays.toString(stock) +
+                ", salesConsumptionQties=" + Arrays.toString(salesConsumptionQties) +
+                ", salesItemNames=" + Arrays.toString(salesItemNames) +
+                ", salesStock=" + Arrays.toString(salesStock) +
                 '}';
+    }
+
+    public String[] getSalesConsumptionQties() {
+        return salesConsumptionQties;
+    }
+
+    public void setSalesConsumptionQties(String[] salesConsumptionQties) {
+        this.salesConsumptionQties = salesConsumptionQties;
+    }
+
+    public String[] getSalesItemNames() {
+        return salesItemNames;
+    }
+
+    public void setSalesItemNames(String[] salesItemNames) {
+        this.salesItemNames = salesItemNames;
+    }
+
+    public String[] getSalesStock() {
+        return salesStock;
+    }
+
+    public void setSalesStock(String[] salesStock) {
+        this.salesStock = salesStock;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public Date getEndDate() {
