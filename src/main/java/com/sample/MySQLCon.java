@@ -224,7 +224,6 @@ class MySQLCon {
 
         preparedStmt.execute();
     }
-    
 
 
 
@@ -264,5 +263,4 @@ class MySQLCon {
 
         return id;
     }
-
 }
