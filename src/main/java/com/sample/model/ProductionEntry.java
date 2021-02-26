@@ -110,15 +110,19 @@ public class ProductionEntry {
         this.itemNames = itemNames;
     }
 
+
     public String[] getItemNames() {
         return itemNames;
+
     }
 
     public void setStock(String[] stock) {
         this.stock = stock;
     }
 
+
     public String[] getStock() {
         return stock;
     }
+    
 }

@@ -1,3 +1,4 @@
+<%@ page import ="java.util.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +22,7 @@
 
 </head>
 <body>
+
 <div id="header"></div>
 <!--Remaining section-->
 
@@ -40,37 +42,12 @@
 
 <br>
 <br>
+<a href="Display">
+<button type="button">check</button>
+</a>
+
 <br>
 
-<div id="TableDisplay" style="display: flex; justify-content: center">
-
-    <table id="mytab1">
-        <tr>
-            <th>Period</th>
-            <th>UD Cake Produced</th>
-            <th>Profit</th>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-
-    </table>
-
-
-
-</div>
 <!--</div> -->
 <div id="footer"></div>
 

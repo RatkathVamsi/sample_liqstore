@@ -1,5 +1,6 @@
 package com.sample;
 
+import com.sample.model.Display;
 import com.sample.model.ProductionEntry;
 import com.sample.model.Purchases;
 import com.sample.model.Sales;
@@ -26,6 +27,29 @@ class MySQLCon {
             System.out.println("SQL connection created");
         }
         return con;
+    }
+
+    public List <Display> getDisplay() throws SQLException, ClassNotFoundException {
+        List <Display> displayList = new ArrayList<Display>();
+        Connection con = createConnection();
+        Statement stmt= con.createStatement();
+        ResultSet rs= stmt.executeQuery("SELECT id,startDate,endDate FROM `default`.transaction;");
+
+        while(rs.next())
+        {
+           int id=rs.getInt(1);
+           String startDate= rs.getString(2);
+           String endDate= rs.getString(3);
+
+           Display display = new Display();
+           display.setTransactionId(id);
+           display.setStartDate(startDate);
+           display.setEndDate(endDate);
+
+           displayList.add(display);
+
+        }
+        return displayList;
     }
 
     public List<Purchases> getPurchases() throws SQLException, ClassNotFoundException {
@@ -200,6 +224,8 @@ class MySQLCon {
 
         preparedStmt.execute();
     }
+
+
 
     public int insertRecords(ProductionEntry productionEntry) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
